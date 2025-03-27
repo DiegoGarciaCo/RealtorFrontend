@@ -13,7 +13,7 @@ export interface GetPostBySlugRow {
   tags: string[]; // []string -> string[]
 }
 
-interface ListPublishedPostsRow {
+export interface ListPublishedPostsRow {
   id: string; // uuid.UUID -> string
   title: string;
   slug: string;

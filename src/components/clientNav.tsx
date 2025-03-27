@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
+import Image from "next/image";
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -104,10 +105,12 @@ export default function ClientNav() {
           <div className="flex items-center justify-between">
             <a href="#" className="-m-1.5 p-1.5">
               <span className="sr-only">Diego Garcia Realty</span>
-              <img
+              <Image
                 alt=""
-                src="https://tailwindui.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
-                className="h-8 w-auto"
+                width={32}
+                height={32}
+                src="/Headshot.jpg"
+                className="h-16 w-16 rounded-full border-2 border-brand-secondary shadow-md"
               />
             </a>
             <button

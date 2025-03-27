@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Carousel from "./carousel";
+import Image from "next/image";
 
 const images = [
   "/Home6.webp",
@@ -26,8 +27,10 @@ export default function Hero() {
 
       {/* Branding */}
       <div className="absolute top-4 left-4 z-20">
-        <img
+        <Image
           src="/Headshot.jpg"
+          width={64}
+          height={64}
           alt="Diego Garcia, Realtor"
           className="h-16 w-16 rounded-full border-2 border-brand-secondary shadow-md"
         />

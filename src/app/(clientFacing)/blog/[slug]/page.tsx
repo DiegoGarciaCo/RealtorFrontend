@@ -4,14 +4,18 @@ import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import Link from "next/link";
 
-interface BlogPostPageProps {
-  params: { slug: string };
-}
+// Define props type to handle potentially async params
+type BlogPostPageProps = {
+  params: Promise<string>; // Union type for flexibility
+};
 
+// Generate dynamic metadata
 export async function generateMetadata({
   params,
 }: BlogPostPageProps): Promise<Metadata> {
-  const post = await getPostBySlug(params.slug).catch((error) => {
+  const slug = await params;
+
+  const post = await getPostBySlug(slug).catch((error) => {
     console.error("Error fetching post:", error);
     return null;
   });
@@ -30,8 +34,12 @@ export async function generateMetadata({
   };
 }
 
+// Page component
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
-  const post = await getPostBySlug(params.slug).catch((error) => {
+  // Resolve params if it's a Promise
+  const slug = await params;
+
+  const post = await getPostBySlug(slug).catch((error) => {
     console.error("Error fetching post:", error);
     return null;
   });
@@ -48,7 +56,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         </h1>
         <p className="text-sm text-gray-500 mb-6">
           {post.publishedAt
-            ? post.publishedAt.toLocaleDateString()
+            ? new Date(post.publishedAt).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })
             : "Unknown date"}
         </p>
         <Image
@@ -74,11 +86,15 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   );
 }
 
+// Generate static paths
 export async function generateStaticParams() {
-  const posts = await getAllPosts().catch((error) => {
+  let posts = await getAllPosts().catch((error) => {
     console.error("Error fetching posts:", error);
     return [];
   });
+  if (!posts) {
+    posts = [];
+  }
   return posts.map((post) => ({
     slug: post.slug,
   }));

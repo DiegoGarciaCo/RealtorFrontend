@@ -165,7 +165,7 @@ export default function Contact() {
               </h2>
               <p className="mt-6 text-lg/8 text-brand-text/80">
                 Have questions or ready to get started? Reach out to us and
-                we'll respond as soon as possible!
+                we&apos;ll respond as soon as possible!
               </p>
               <dl className="mt-10 space-y-4 text-base/7 text-brand-text/80">
                 <div className="flex gap-x-4">

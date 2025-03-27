@@ -23,12 +23,13 @@ export default function AboutMe() {
               Meet Diego Garcia, Chicago Realtor
             </h2>
             <p className="mt-4 text-lg text-brand-primary/80 leading-relaxed">
-              Diego Garcia is a dedicated Chicagoland realtor with two years of
-              licensed experience, specializing in real estate investing.
-              Leveraging his extensive knowledge of the Chicagoland market
-              through MRED MLS access, Diego assists sellers in maximizing
-              property value, guides investors to profitable opportunities, and
-              helps buyers find their ideal homes across the region.
+              Diego Garcia (License #475198454) is a dedicated Chicagoland
+              realtor with Stonebridge Realty with two years of licensed
+              experience, specializing in real estate investing. Leveraging his
+              extensive knowledge of the Chicagoland market, Diego assists
+              sellers in maximizing property value, guides investors to
+              profitable opportunities, and helps buyers find their ideal homes
+              across the region.
             </p>
             <p className="mt-4 text-lg text-brand-primary/80 leading-relaxed">
               Born and raised in the Chicago area, Diego Garcia brings a

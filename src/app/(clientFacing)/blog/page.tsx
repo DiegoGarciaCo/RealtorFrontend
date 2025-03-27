@@ -25,6 +25,9 @@ export default async function BlogPage() {
     post.tags.includes("featured")
   )[0];
   const otherPosts = posts[0] ? posts.slice(1) : [];
+  const categories = Array.from(
+    new Set(otherPosts.flatMap((post) => post.tags))
+  );
 
   return (
     <main className="py-16 bg-gradient-to-b from-gray-50 to-white">
@@ -34,8 +37,8 @@ export default async function BlogPage() {
           Real Estate Insights for Chicago Suburbs
         </h1>
         <p className="text-lg md:text-xl text-gray-600 mb-12 text-center max-w-3xl mx-auto">
-          Tips, trends, and guides for buyers and sellers in Arlington Heights,
-          Naperville, Schaumburg, and beyond.
+          Tips, trends, and guides for buyers and sellers in Chicago, Arlington
+          Heights, Naperville, Schaumburg, and beyond.
         </p>
 
         {/* Featured Post */}
@@ -79,15 +82,29 @@ export default async function BlogPage() {
             More Real Estate Tips & Trends
           </h3>
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {otherPosts.map((post) => (
-              <BlogCard
-                key={post.slug}
-                post={{
-                  ...post,
-                  image: post.thumbnail || "/Home2.webp", // Fallback stock image
-                }}
-              />
-            ))}
+            {categories.map((category) => {
+              const categoryPosts = otherPosts
+                .filter((post) => post.tags.includes(category))
+                .slice(0, 2);
+              return (
+                <div key={category}>
+                  <div className="flex items-center justify-between">
+                    <h4 className="text-xl md:text-2xl font-semibold text-gray-700 mb-4">
+                      {category}
+                    </h4>
+                    <Link
+                      href={`/blog/category/${category}`}
+                      className="text-sm text-gray-500 hover:underline"
+                    >
+                      browse all
+                    </Link>
+                  </div>
+                  {categoryPosts.map((post) => (
+                    <BlogCard key={post.id} post={post} />
+                  ))}
+                </div>
+              );
+            })}
           </div>
         </section>
       </div>

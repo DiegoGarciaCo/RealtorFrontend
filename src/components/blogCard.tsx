@@ -1,9 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
-import { BlogPost } from "@/lib/post";
+import { GetPostBySlugRow, ListPublishedPostsRow } from "@/lib/definitions";
 
 interface BlogCardProps {
-  post: BlogPost;
+  post: GetPostBySlugRow | ListPublishedPostsRow;
 }
 
 export default function BlogCard({ post }: BlogCardProps) {
@@ -11,7 +11,7 @@ export default function BlogCard({ post }: BlogCardProps) {
     <Link href={`/blog/${post.slug}`} className="block group">
       <div className="bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 group-hover:shadow-lg group-hover:-translate-y-1">
         <Image
-          src={post.image}
+          src={post.thumbnail || "/default-thumbnail.jpg"}
           alt={post.title}
           width={400}
           height={250}
@@ -22,7 +22,11 @@ export default function BlogCard({ post }: BlogCardProps) {
             {post.title}
           </h2>
           <p className="text-gray-600 mb-3 line-clamp-3">{post.excerpt}</p>
-          <p className="text-sm text-gray-500">{post.date}</p>
+          <p className="text-sm text-gray-500">
+            {post.publishedAt
+              ? post.publishedAt.toLocaleDateString()
+              : "Unknown date"}
+          </p>
         </div>
       </div>
     </Link>

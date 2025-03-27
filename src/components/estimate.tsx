@@ -114,9 +114,9 @@ export default function Estimate() {
                 Get a Free Estimate of Your Home&apos;s Value
               </p>
               <p className="mt-6 text-lg/8 text-brand-primary/80">
-                Curious about your home's value? Fill out the form below to get
-                a free, no-obligation estimate sent directly to your inbox. Let
-                us help you plan your next move!
+                Curious about your home&apos;s value? Fill out the form below to
+                get a free, no-obligation estimate sent directly to your inbox.
+                Let us help you plan your next move!
               </p>
               <div className="mt-8">
                 <form onSubmit={handleSubmit}>
