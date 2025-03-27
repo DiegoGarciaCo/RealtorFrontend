@@ -1,0 +1,41 @@
+name: CD
+
+# Trigger the workflow on push to the main branch
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    name: Build, Push, and Deploy with Google Cloud SDK
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository code
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # Authenticate with Google Cloud using service account key
+      - name: Authenticate with Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.SERVICE_ACCOUNT_KEY }}
+
+      # Set up Google Cloud SDK
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+
+      # Build and push the Docker image using Cloud Build
+      - name: Build and Push Docker Image with Cloud Build
+        run: gcloud builds submit --tag us-central1-docker.pkg.dev/realtor-webpage/frontend/frontend:${{ github.sha }}
+
+      # Deploy to Google Cloud Run
+      - name: Deploy to Cloud Run
+        run: |
+          gcloud run deploy frontend \
+            --image us-central1-docker.pkg.dev/realtor-webpage/frontend/frontend:${{ github.sha }} \
+            --region us-central1 \
+            --allow-unauthenticated \
+            --project realtor-webpage \
+            --max-instances=4
