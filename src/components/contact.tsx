@@ -46,19 +46,15 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Clear previous errors
     setFormErrors({});
     setSuccessMessage(null);
 
-    // Validate the form data using the Zod schema
     const results = ContactSchema.safeParse(formData);
 
     if (results.success) {
       fetch("https://api.soldbyghost.com/api/submit/form", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           firstName: formData.firstName,
           lastName: formData.lastName,
@@ -68,12 +64,23 @@ export default function Contact() {
           subscribed: true,
         }),
       })
-        .then((response) => response.json())
-        .then((responseData) => {
-          if (responseData.success) {
+        .then((response) => {
+          if (response.status === 204) {
+            // Handle 204 as success
             setSuccessMessage("Submitted successfully!");
             setTimeout(() => setSuccessMessage(null), 5000);
-          } else {
+            return; // Exit early, no body to parse
+          }
+          if (!response.ok) {
+            throw new Error("Server error: " + response.status);
+          }
+          return response.json(); // Only parse JSON for non-204
+        })
+        .then((responseData) => {
+          if (responseData && responseData.success) {
+            setSuccessMessage("Submitted successfully!");
+            setTimeout(() => setSuccessMessage(null), 5000);
+          } else if (responseData) {
             setFormErrors((prev) => ({
               ...prev,
               apiError: responseData.message || "An error occurred.",
@@ -95,9 +102,7 @@ export default function Contact() {
         }));
       });
     }
-    setTimeout(() => {
-      setFormErrors({});
-    }, 5000);
+    setTimeout(() => setFormErrors({}), 5000);
   };
 
   return (

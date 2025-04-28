@@ -68,14 +68,14 @@ export default function MortgageCalculator() {
     const results = MortgageDataSchema.safeParse(formData);
 
     if (results.success) {
-      fetch("https://api.soldbyghost.com/api/calculator", {
+      fetch("http://localhost:8080/api/calculator", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
           price: formData.price,
-          interst: formData.interest, // Typo in original: should be "interest"
+          interest: formData.interest,
           years: formData.term,
           downPayment: formData.downPayment,
           firstName: formData.firstName,
