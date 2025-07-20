@@ -1,8 +1,10 @@
 import { GetPostBySlugRow, ListPublishedPostsResponse } from "./definitions";
 
+const domain = process.env.NEXT_PUBLIC_DOMAIN || "localhost:3000";
+
 export async function getAllPosts(): Promise<ListPublishedPostsResponse> {
   const response = await fetch(
-    "https://api.soldbyghost.com/api/posts/published"
+    `${domain}/api/posts/published`
   );
   if (!response.ok) {
     throw new Error("Failed to fetch posts");
@@ -12,7 +14,7 @@ export async function getAllPosts(): Promise<ListPublishedPostsResponse> {
 }
 
 export async function getPostBySlug(slug: string): Promise<GetPostBySlugRow> {
-  const response = await fetch(`https://api.soldbyghost.com/api/posts/${slug}`);
+  const response = await fetch(`${domain}/api/posts/${slug}`);
   if (!response.ok) {
     throw new Error(`Failed to fetch post with slug: ${slug}`);
   }
