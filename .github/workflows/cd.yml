@@ -56,5 +56,5 @@ jobs:
           name: realtor 
           file: docker-compose.yml
           host: soldbyghost.com
-          user: deploy
+          user: ghost
           ssh_key: ${{ secrets.SSH_KEY }}
