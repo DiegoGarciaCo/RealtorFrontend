@@ -67,7 +67,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
   // Filter posts by category
   const categoryPosts = posts.filter((post) =>
-    post.tags.map((tag) => tag.toLowerCase()).includes(category)
+    post.Tags.map((tag) => tag.toLowerCase()).includes(category)
   );
 
   // If no posts match the category, trigger 404
@@ -94,7 +94,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         <section>
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {categoryPosts.map((post) => (
-              <BlogCard key={post.id} post={post} />
+              <BlogCard key={post.ID} post={post} />
             ))}
           </div>
         </section>

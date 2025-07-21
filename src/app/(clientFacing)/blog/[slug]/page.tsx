@@ -4,16 +4,17 @@ import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import Link from "next/link";
 
-// Define props type to handle potentially async params
+// Define props type to handle async params and searchParams
 type BlogPostPageProps = {
-  params: { slug: string }
+  params: Promise<{ slug: string }>;
+  searchParams?: Promise<Record<string, string | string[] | undefined>> | undefined; // Updated to Promise
 };
 
 // Generate dynamic metadata
 export async function generateMetadata({
   params,
 }: BlogPostPageProps): Promise<Metadata> {
-  const slug = params.slug;
+  const { slug } = await params; // Await params to get slug
 
   const post = await getPostBySlug(slug).catch((error) => {
     console.error("Error fetching post:", error);
@@ -36,8 +37,7 @@ export async function generateMetadata({
 
 // Page component
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
-  // Resolve params if it's a Promise
-  const slug = params.slug;
+  const { slug } = await params;
 
   const post = await getPostBySlug(slug).catch((error) => {
     console.error("Error fetching post:", error);
