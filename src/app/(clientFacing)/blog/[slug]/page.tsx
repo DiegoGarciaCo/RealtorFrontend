@@ -6,14 +6,14 @@ import Link from "next/link";
 
 // Define props type to handle potentially async params
 type BlogPostPageProps = {
-  params: Promise<string>; // Union type for flexibility
+  params: { slug: string }
 };
 
 // Generate dynamic metadata
 export async function generateMetadata({
   params,
 }: BlogPostPageProps): Promise<Metadata> {
-  const slug = await params;
+  const slug = params.slug;
 
   const post = await getPostBySlug(slug).catch((error) => {
     console.error("Error fetching post:", error);
@@ -21,15 +21,15 @@ export async function generateMetadata({
   });
   if (!post) return { title: "Post Not Found" };
   return {
-    title: post.title,
-    description: post.excerpt,
-    keywords: `${post.title
+    title: post.Title,
+    description: post.Excerpt.Valid ? post.Excerpt.String : "No excerpt available.",
+    keywords: `${post.Title
       .split(" ")
       .join(", ")}, Chicago suburbs real estate`,
     openGraph: {
-      title: post.title,
-      description: post.excerpt || undefined,
-      images: post.thumbnail ? [post.thumbnail] : [],
+      title: post.Title,
+      description: post.Excerpt.Valid ? post.Excerpt.String : "No excerpt available.",
+      images: post.Thumbnail.Valid ? [post.Thumbnail.String] : [],
     },
   };
 }
@@ -37,7 +37,7 @@ export async function generateMetadata({
 // Page component
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   // Resolve params if it's a Promise
-  const slug = await params;
+  const slug = params.slug;
 
   const post = await getPostBySlug(slug).catch((error) => {
     console.error("Error fetching post:", error);
@@ -52,11 +52,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     <main className="py-16 bg-gray-50">
       <div className="max-w-3xl mx-auto px-6">
         <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-          {post.title}
+          {post.Title}
         </h1>
         <p className="text-sm text-gray-500 mb-6">
-          {post.publishedAt
-            ? new Date(post.publishedAt).toLocaleDateString("en-US", {
+          {post.PublishedAt.Valid
+            ? new Date(post.PublishedAt.Time).toLocaleDateString("en-US", {
                 year: "numeric",
                 month: "long",
                 day: "numeric",
@@ -64,15 +64,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             : "Unknown date"}
         </p>
         <Image
-          src={post.thumbnail || "/default-thumbnail.jpg"}
-          alt={post.title}
+          src={post.Thumbnail.Valid ? post.Thumbnail.String : "/default-thumbnail.jpg"}
+          alt={post.Title}
           width={800}
           height={400}
           className="object-cover w-full h-64 md:h-96 rounded-lg mb-8"
         />
-        <article className="prose prose-lg text-gray-700">
-          {post.content}
-        </article>
+        <article className="prose prose-lg text-gray-700" dangerouslySetInnerHTML={{ __html: post.Content }} />
         <div className="mt-8 text-center">
           <Link
             href="/contact"
@@ -96,6 +94,6 @@ export async function generateStaticParams() {
     posts = [];
   }
   return posts.map((post) => ({
-    slug: post.slug,
+    slug: post.Slug,
   }));
 }

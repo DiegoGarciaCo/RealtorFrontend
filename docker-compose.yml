@@ -3,6 +3,9 @@ services:
     image: dgarcia51/realtor:latest
     ports:
       - "4000:4000"
+    environment:
+      - FUB_API_KEY=${FUB_API_KEY}
+      - NEXT_PUBLIC_DOMAIN=${NEXT_PUBLIC_DOMAIN}
     deploy:
       replicas: 3
       update_config:

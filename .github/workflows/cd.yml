@@ -11,6 +11,11 @@ jobs:
       - name: checkout code
         uses: actions/checkout@v4
 
+      - name: create .env file
+        run: |
+          echo "FUB_API_KEY=${{ secrets.FUB_API_KEY }}" >> .env
+          echo "NEXT_PUBLIC_DOMAIN=${{ vars.NEXT_PUBLIC_DOMAIN }}" >> .env
+
       - name: set up node.js
         uses: actions/setup-node@v4
         with:

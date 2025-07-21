@@ -1,6 +1,6 @@
 import { GetPostBySlugRow, ListPublishedPostsResponse } from "./definitions";
 
-const domain = process.env.NEXT_PUBLIC_DOMAIN || "localhost:3000";
+const domain = process.env.NEXT_PUBLIC_DOMAIN || "http://localhost:8080";
 
 export async function getAllPosts(): Promise<ListPublishedPostsResponse> {
   const response = await fetch(

@@ -156,7 +156,7 @@ export default function MarketTrends() {
           className="text-4xl md:text-5xl font-bold text-brand-primary mb-6 text-center"
           variants={itemVariants}
         >
-          Market Trends in Chiacago and the Northwest, North, and West Suburbs
+          Market Trends in the Chicagoland area 
         </motion.h2>
         <motion.p
           className="text-lg text-brand-primary/80 mb-12 text-center max-w-3xl mx-auto"
@@ -375,8 +375,8 @@ export default function MarketTrends() {
 
         <motion.div className="text-center mt-12" variants={itemVariants}>
           <p className="text-lg text-brand-primary/80 mb-6">
-            Our suburbs are primed for sellers in 2025. With my expertise in
-            Arlington Heights, Schaumburg, Naperville, and more, I&apos;ll get
+            Our market is primed for sellers in 2025. With my expertise in
+            the chicagoland area, I&apos;ll get
             your home sold fast and for top value.
           </p>
           <a
