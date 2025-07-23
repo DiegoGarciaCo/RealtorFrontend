@@ -5,6 +5,9 @@ import { ChevronDownIcon } from "@heroicons/react/16/solid";
 import { Field, Label, Switch } from "@headlessui/react";
 import { motion } from "framer-motion";
 import { z } from "zod";
+import { SubmitCalculatorForm } from "@/lib/calculator";
+
+const domain = "http://localhost:8080";
 
 const phoneNumberRegex = /^(?:\+1\s?)?(\(?\d{3}\)?)[-.\s]?\d{3}[-.\s]?\d{4}$/;
 const numbersOnlyRegex = /^\d{1,3}(?:[,\.]\d{3})*(?:[\.]?\d+)?$/;
@@ -32,7 +35,7 @@ const MortgageDataSchema = z.object({
   phoneNumber: z.string().regex(phoneNumberRegex, "Invalid phone number"),
 });
 
-type MortgageData = z.infer<typeof MortgageDataSchema>;
+export type MortgageData = z.infer<typeof MortgageDataSchema>;
 
 export default function MortgageCalculator() {
   const [agreed, setAgreed] = useState(false);
@@ -68,42 +71,29 @@ export default function MortgageCalculator() {
     const results = MortgageDataSchema.safeParse(formData);
 
     if (results.success) {
-      fetch("http://localhost:8080/api/calculator", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          price: formData.price,
-          interest: formData.interest,
-          years: formData.term,
-          downPayment: formData.downPayment,
-          firstName: formData.firstName,
-          lastName: formData.lastName,
-          email: formData.email,
-          number: formData.phoneNumber,
-          subscribed: true,
-        }),
-      })
-        .then((response) => response.json())
-        .then((responseData) => {
-          if (responseData.success) {
-            setSuccessMessage("Submitted successfully!");
-            setTimeout(() => setSuccessMessage(null), 5000);
-          } else {
+        try {
+            const response = await SubmitCalculatorForm(formData)
+
+            if (response.ok) {
+                setSuccessMessage("Your mortgage estimate is ready!");
+                setFormData({
+                    firstName: "",
+                    lastName: "",
+                    price: "",
+                    downPayment: "",
+                    interest: "",
+                    term: "",
+                    email: "",
+                    phoneNumber: "",
+                });
+            }
+        } catch (error) {
+            console.error("Error submitting form:", error);
             setFormErrors((prev) => ({
-              ...prev,
-              apiError: responseData.message || "An error occurred.",
+                ...prev,
+                apiError: "Failed to submit form. Please try again later.",
             }));
-          }
-        })
-        .catch((error) => {
-          console.error("Error submitting data:", error);
-          setFormErrors((prev) => ({
-            ...prev,
-            apiError: "Failed to submit. Please try again.",
-          }));
-        });
+        }
     } else {
       results.error.errors.forEach((error) => {
         setFormErrors((prev) => ({
