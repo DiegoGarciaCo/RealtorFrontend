@@ -74,7 +74,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <div className="mt-8 text-center">
           <Link
             href="/contact"
-            className="inline-block bg-green-600 text-white py-3 px-6 rounded-lg text-lg font-semibold hover:bg-green-700 transition"
+            className="px-10 py-5 text-lg font-semibold bg-brand-secondary text-brand-primary rounded-lg shadow-lg hover:bg-brand-accent hover:text-brand-primary transition-all duration-300"
           >
             Contact Me for Expert Help
           </Link>

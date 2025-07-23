@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   keywords:
     "Chicago suburbs real estate, Arlington Heights homes, Naperville market",
 };
+export const dynamic = "force-dynamic"; 
 
 export default async function BlogPage() {
   let posts = await getAllPosts().catch((error) => {

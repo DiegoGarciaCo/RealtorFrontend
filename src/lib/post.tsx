@@ -1,11 +1,9 @@
 import { GetPostBySlugRow, ListPublishedPostsResponse } from "./definitions";
 
-const domain = process.env.NEXT_PUBLIC_DOMAIN || "http://localhost:8080";
+const domain = "https://api.soldbyghost.com";
 
 export async function getAllPosts(): Promise<ListPublishedPostsResponse> {
-  const response = await fetch(
-    `${domain}/api/posts/published`
-  );
+  const response = await fetch(domain + "/api/posts/published");
   if (!response.ok) {
     throw new Error("Failed to fetch posts");
   }

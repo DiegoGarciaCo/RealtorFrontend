@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  font-family: system-ui, sans-serif;
+  color: #222;
+}
+
 .embla {
   overflow: hidden;
 }
@@ -11,4 +16,47 @@
 .embla__slide {
   flex: 0 0 100%;
   min-width: 0;
+}
+
+h2 {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 0.5rem;
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  font-size: 1rem; /* Adjust as needed */
+  line-height: 1.6; /* Improves readability */
+  margin-bottom: 1rem;
+  color: #333; /* Optional: set a text color */
+}
+
+ul {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+  list-style-type: disc; /* Or custom bullet styles if desired */
+}
+
+li {
+  margin-bottom: 0.5rem;
+}
+
+strong {
+  font-weight: 700; /* Make sure it's noticeably bold */
+  color: #111; /* Optional: darker color for emphasis */
 }
