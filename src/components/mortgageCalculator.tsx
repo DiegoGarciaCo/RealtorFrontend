@@ -7,7 +7,6 @@ import { motion } from "framer-motion";
 import { z } from "zod";
 import { SubmitCalculatorForm } from "@/lib/calculator";
 
-const domain = "http://localhost:8080";
 
 const phoneNumberRegex = /^(?:\+1\s?)?(\(?\d{3}\)?)[-.\s]?\d{3}[-.\s]?\d{4}$/;
 const numbersOnlyRegex = /^\d{1,3}(?:[,\.]\d{3})*(?:[\.]?\d+)?$/;
