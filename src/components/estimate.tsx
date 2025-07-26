@@ -49,7 +49,7 @@ export default function Estimate() {
     const results = EstimateFormSchema.safeParse(formData);
 
     if (results.success) {
-      fetch("https://api.soldbyghost.com/api/submit/estimate", {
+      fetch("https://api.soldbyghost.com/api/estimate", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
