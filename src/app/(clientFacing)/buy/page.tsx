@@ -1,5 +1,4 @@
 import Contact from "@/components/contact";
-import FeaturedListings from "@/components/featuredListings";
 import Guide from "@/components/Guides";
 import MortgageCalculator from "@/components/mortgageCalculator";
 import PageHero from "@/components/pageHero";
@@ -15,9 +14,6 @@ export default function Buy() {
       </section>
       <section>
         <Guide variant="buy" />
-      </section>
-      <section className="bg-white">
-        <FeaturedListings />
       </section>
       <section>
         <Contact />

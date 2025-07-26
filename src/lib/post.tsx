@@ -1,4 +1,4 @@
-import { GetPostBySlugRow, ListPublishedPostsResponse } from "./definitions";
+import { GetPostBySlugRow, ListPublishedPostsResponse, PostByCategoryRow } from "./definitions";
 
 const domain = "https://api.soldbyghost.com";
 
@@ -18,3 +18,12 @@ export async function getPostBySlug(slug: string): Promise<GetPostBySlugRow> {
   }
   return response.json();
 }
+
+export async function getPostsByCategory(category: string): Promise<PostByCategoryRow[]> {
+    const endcodedCategory = encodeURIComponent(category);
+  const response = await fetch(`${domain}/api/posts/category/${endcodedCategory}`);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch posts for category: ${category}`);
+  }
+  return response.json();
+} 

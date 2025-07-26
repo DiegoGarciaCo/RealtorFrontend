@@ -7,9 +7,9 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Real Estate Blog | Chicago Suburbs Realty",
   description:
-    "Expert insights on buying and selling homes in the northwest, north, and west suburbs of Chicago.",
+    "Expert insights on buying and selling homes in the Chicago area.",
   keywords:
-    "Chicago suburbs real estate, Arlington Heights homes, Naperville market",
+    "Chicago homes, Real Estate Blog, real estate tips, real estate investing, home buying tips, home selling tips, Arlington Heights Homes, Naperville Homes, Schaumburg home, Chicago suburbs homes",
 };
 export const dynamic = "force-dynamic"; 
 
@@ -35,11 +35,10 @@ export default async function BlogPage() {
       <div className="mx-auto px-6">
         {/* Header */}
         <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 text-center">
-          Real Estate Insights for Chicago Suburbs
+          Real Estate Insights for Chicago 
         </h1>
         <p className="text-lg md:text-xl text-gray-600 mb-12 text-center max-w-3xl mx-auto">
-          Tips, trends, and guides for buyers and sellers in Chicago, Arlington
-          Heights, Naperville, Schaumburg, and beyond.
+          Tips, trends, and guides for buyers and sellers in the Chicago area. Whether you're looking to buy your first home, sell your property, or stay updated on the latest market trends, our blog has you covered.
         </p>
 
         {/* Featured Post */}

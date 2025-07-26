@@ -1,12 +1,13 @@
-import { getAllPosts } from "@/lib/post";
+import { getPostsByCategory } from "@/lib/post";
 import BlogCard from "@/components/blogCard";
 import Link from "next/link";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-// Define props type to handle potentially async params
+
 type CategoryPageProps = {
-  params: Promise<{ category: string }>;
+  params: Promise<{ category : string }>;
+  searchParams?: Promise<Record<string, string | string[] | undefined>> | undefined; // Updated to Promise
 };
 
 // Dynamic metadata based on category
@@ -14,32 +15,23 @@ export async function generateMetadata({
   params,
 }: CategoryPageProps): Promise<Metadata> {
   // Resolve params if it's a Promise
-  const resolvedParams = await (params instanceof Promise
-    ? params
-    : Promise.resolve(params));
-  const category = resolvedParams.category.replace(/-/g, " ").toLowerCase();
+  const { category } = await params; 
+
   return {
     title: `${
       category.charAt(0).toUpperCase() + category.slice(1)
-    } | Chicago Suburbs Realty Blog`,
-    description: `Explore all blog posts about ${category} in the Chicago suburbs real estate market.`,
-    keywords: `${category}, Chicago suburbs, real estate, Arlington Heights, Naperville`,
+    } | Chicago Real Estate Blog`,
+    description: `Explore all blog posts about ${category} in the Chicago real estate market.`,
+    keywords: `${category}, Chicago, real estate, Chicago Real Estate`,
   };
 }
 
 // Dynamic page component
 export default async function CategoryPage({ params }: CategoryPageProps) {
-  // Resolve params if it's a Promise
-  const resolvedParams = await (params instanceof Promise
-    ? params
-    : Promise.resolve(params));
-  const categoryParam = resolvedParams.category;
+  const { category } = await params; 
 
   // Fetch all posts
-  const posts = await getAllPosts().catch((error) => {
-    console.error("Error fetching posts:", error);
-    return [];
-  });
+  const posts = await getPostsByCategory(category)
 
   if (!posts || posts.length === 0) {
     return (
@@ -62,8 +54,6 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     );
   }
 
-  // Normalize category (e.g., "arlington-heights" -> "arlington heights")
-  const category = categoryParam.replace(/-/g, " ").toLowerCase();
 
   // Filter posts by category
   const categoryPosts = posts.filter((post) =>

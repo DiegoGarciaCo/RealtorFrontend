@@ -1,9 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
-import { GetPostBySlugRow, ListPublishedPostsRow } from "@/lib/definitions";
+import { GetPostBySlugRow, ListPublishedPostsRow, PostByCategoryRow } from "@/lib/definitions";
 
 interface BlogCardProps {
-  post: GetPostBySlugRow | ListPublishedPostsRow;
+  post: GetPostBySlugRow | ListPublishedPostsRow | PostByCategoryRow;
 }
 
 export default function BlogCard({ post }: BlogCardProps) {

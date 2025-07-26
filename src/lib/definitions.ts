@@ -36,3 +36,15 @@ export interface ListPublishedPostsRow {
 }
 
 export type ListPublishedPostsResponse = ListPublishedPostsRow[];
+
+export interface PostByCategoryRow {
+    ID: string;
+    Title: string;
+    Slug: string;
+    Excerpt: nullableString;
+    CreatedAt: nullableDate;
+    Tags: string[];
+    Thumbnail: nullableString;
+    PublishedAt: nullableDate;
+    Author: nullableString;
+}
