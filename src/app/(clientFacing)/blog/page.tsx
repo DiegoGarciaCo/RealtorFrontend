@@ -38,7 +38,7 @@ export default async function BlogPage() {
           Real Estate Insights for Chicago 
         </h1>
         <p className="text-lg md:text-xl text-gray-600 mb-12 text-center max-w-3xl mx-auto">
-          Tips, trends, and guides for buyers and sellers in the Chicago area. Whether you're looking to buy your first home, sell your property, or stay updated on the latest market trends, our blog has you covered.
+          Tips, trends, and guides for buyers and sellers in the Chicago area. Whether you&apos;re looking to buy your first home, sell your property, or stay updated on the latest market trends, our blog has you covered.
         </p>
 
         {/* Featured Post */}
