@@ -53,7 +53,7 @@ jobs:
       - name: deploy stack
         uses: cssnr/stack-deploy-action@v1
         with:
-          name: realtor 
+          name: realtor
           file: docker-compose.yml
           host: soldbyghost.com
           user: ghost

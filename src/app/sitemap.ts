@@ -1,6 +1,8 @@
 import { getAllPosts } from '@/lib/post';
 import { MetadataRoute } from 'next';
 
+export const dynamic = 'force-dynamic'; 
+
 // Define your static pages
 const staticPages = [
   {
