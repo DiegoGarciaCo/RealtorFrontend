@@ -17,7 +17,7 @@
     "embla-carousel-autoplay": "^8.5.2",
     "embla-carousel-react": "^8.5.2",
     "framer-motion": "^12.4.10",
-    "next": "15.1.7",
+    "next": "^15.5.9",
     "react": "^19.0.0",
     "react-chartjs-2": "^5.3.0",
     "react-dom": "^19.0.0",
